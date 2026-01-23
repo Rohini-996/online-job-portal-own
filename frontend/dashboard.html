@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Dashboard</h2>
+        {% if session['role'] == 'employer' %}
+            <a href="/post_job" class="btn">Post a Job</a>
+            <h3>Your Jobs</h3>
+            {% for job in jobs %}
+                <div class="card">
+                    <h4>{{ job.title }}</h4>
+                    <p>{{ job.description }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>Your Applications</h3>
+            {% for app in applications %}
+                <div class="card">
+                    <h4>{{ app.job.title }}</h4>
+                    <p>Status: {{ app.status }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <a href="/logout">Logout</a>
+    </div>
+</body>
+</html>
